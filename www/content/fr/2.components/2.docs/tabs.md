@@ -139,7 +139,7 @@ badges:
 ::stack
   ::div{class="p-4"}
     ::tabs{variant="line"}
-      ::div{label="Aperçu" class="border flex min-h-[200px] w-full justify-center p-10 items-center rounded-lg shadow-sm"}
+      ::div{label="Aperçu" class="border flex min-h-[200px] w-full justify-center p-10 items-center rounded-lg shadow-xs"}
         :badge[Badge]
       ::
       ::div{label="Code"}
@@ -155,7 +155,7 @@ badges:
   ::
   ```mdc
   ::tabs{variant="line"}
-    ::div{label="Aperçu" class="border flex min-h-[200px] w-full justify-center p-10 items-center rounded-lg shadow-sm"}
+    ::div{label="Aperçu" class="border flex min-h-[200px] w-full justify-center p-10 items-center rounded-lg shadow-xs"}
       :badge[Badge]
     ::
     ::div{label="Code"}
@@ -266,7 +266,7 @@ badges:
 ### Onglets Synchronisés
 :badge[0.8.0]{variant="outline"}
 
-:read-more{to="/fr/components/docs/pm"}
+:read-more{to="/components/docs/pm"}
 
 ::stack
   ::div{class="p-4 md:p-8"}

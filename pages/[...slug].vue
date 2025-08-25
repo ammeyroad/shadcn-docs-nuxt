@@ -7,7 +7,7 @@
       404
     </h3>
     <span class="scroll-m-20 px-4">
-      This page could not be found.
+      {{ $t('This page could not be found.') }}
     </span>
   </div>
 
@@ -40,10 +40,15 @@
 
         <Alert
           v-if="page?.body?.children?.length === 0"
-          title="Empty Page"
           icon="lucide:circle-x"
+
+          :title="$t('Empty page')"
         >
-          Start writing in <ProseCodeInline>content/{{ page?._file }}</ProseCodeInline> to see this page taking shape.
+          <i18n-t keypath="Start writing content">
+            <template #fileLink>
+              <ProseCodeInline>content/{{ page?._file }}</ProseCodeInline>
+            </template>
+          </i18n-t>
         </Alert>
 
         <ContentRenderer
@@ -57,7 +62,12 @@
         <LayoutDocsFooter />
       </div>
       <div v-if="config.toc.enable && (page.toc ?? true)" class="hidden text-sm lg:block">
-        <div class="sticky top-[90px] h-[calc(100vh-3.5rem)] overflow-hidden">
+        <div
+          class="sticky"
+          :class="[
+            (config.aside.useLevel && config.aside.levelStyle === 'aside') ? 'md:top-[91px]' : 'md:top-[133px]',
+          ]"
+        >
           <LayoutToc :is-small="false" />
         </div>
       </div>

@@ -1,6 +1,6 @@
 <template>
   <UiCard
-    class="bg-muted/30 relative overflow-hidden [&:not(:first-child)]:mt-5 [&:not(:last-child)]:mb-5"
+    class="bg-[#FBFBFB] dark:bg-[#121215] relative overflow-hidden [&:not(:first-child)]:mt-5 [&:not(:last-child)]:mb-5"
     :class="[
       (inGroup || inTree) && 'mb-0 rounded-t-none border-none shadow-none',
       inStack && 'mb-0 rounded-none border-none shadow-none',
@@ -16,7 +16,7 @@
       <CodeCopy :code />
     </div>
 
-    <div v-if="parsedMeta.has('collapse')">
+    <UiScrollArea v-if="parsedMeta.has('collapse')">
       <div
         :style="[((parsedMeta.has('height') || height) && !expanded) ? `height: ${height || parsedMeta.get('height')}px` : undefined]"
         class="overflow-x-auto overflow-y-hidden py-3 text-sm"
@@ -29,7 +29,8 @@
       >
         <slot />
       </div>
-    </div>
+      <ScrollBar orientation="horizontal" />
+    </UiScrollArea>
     <UiScrollArea v-else :style="[(parsedMeta.has('height') || height) && `height: ${height || parsedMeta.get('height')}px`]">
       <div
         class="overflow-x-auto py-3 text-sm"
@@ -113,10 +114,11 @@ const icon = computed(() => {
 }
 
 .shiki .line.highlight {
-  background-color: hsl(var(--muted) / 0.9);
+  background-color: hsl(var(--muted));
 }
 
-.shiki .line {
+.shiki .line,
+.language-text {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
 }
@@ -125,8 +127,63 @@ const icon = computed(() => {
   padding-right: 2.75rem;
 }
 
+.has-diff .line::before,
 .show-line-number .line::before {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-xs--line-height));
+  width: calc(var(--spacing) * 5);
+  display: inline-block;
+  text-align: right;
+  margin-right: calc(var(--spacing) * 4);
+  color: hsl(var(--muted-foreground));
+}
+
+.show-line-number .line:not(.diff)::before {
+  font-size: var(--text-xs);
   content: attr(line);
-  @apply text-sm w-5 inline-block text-right mr-4 text-muted-foreground;
+}
+
+.has-diff:not(.show-line-number>.has-diff) .line:not(.diff)::before {
+  font-size: var(--text-sm);
+  content: '';
+}
+
+.diff.add {
+  background-color: color-mix(in oklab,var(--color-green-500)15%,transparent) !important;
+}
+
+.diff.remove {
+  background-color: color-mix(in oklab,var(--color-red-500)15%,transparent) !important;
+}
+
+.diff.add.line::before {
+  font-size: var(--text-sm);
+  color: var(--color-green-600);
+  content: '+';
+}
+
+.diff.remove.line::before {
+  font-size: var(--text-sm);
+  color: var(--color-red-600);
+  content: '-';
+}
+
+.highlighted.warning {
+  background-color: color-mix(in oklab,var(--color-yellow-500)15%,transparent) !important;
+}
+
+.highlighted.error {
+  background-color: color-mix(in oklab,var(--color-red-500)15%,transparent) !important;
+}
+
+.has-focused .line:not(.focused) {
+  opacity: 0.5;
+  filter: blur(.095rem);
+  transition: filter .35s, opacity .35s;
+}
+
+.has-focused:hover .line:not(.focused) {
+  opacity: 1;
+  filter: blur(0);
 }
 </style>

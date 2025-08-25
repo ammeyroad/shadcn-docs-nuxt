@@ -3,12 +3,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: ['..'],
   i18n: {
-    bundle: {
-      optimizeTranslationDirective: false,
-    },
-    baseUrl: 'https://shadcn-docs-nuxt.vercel.app/',
-    detectBrowserLanguage: false,
-    strategy: 'prefix_except_default',
     defaultLocale: 'en',
     locales: [
       {
@@ -21,7 +15,23 @@ export default defineNuxtConfig({
         name: 'Français',
         language: 'fr-FR',
       },
+      {
+        code: 'km',
+        name: 'ភាសាខ្មែរ',
+        language: 'km-KH',
+      },
+      {
+        code: 'it',
+        name: 'Italiano',
+        language: 'it-IT',
+      },
     ],
   },
-  compatibilityDate: '2024-07-06',
+  ogImage: {
+    fonts: [
+      'Geist:400',
+      'Geist:700',
+    ],
+  },
+  compatibilityDate: '2025-05-13',
 });

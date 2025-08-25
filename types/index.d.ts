@@ -46,10 +46,10 @@ interface DefaultConfig {
       target: string;
       showLinkIcon: boolean;
       links: ({
-        title: string;
-        to: string;
-        target: string;
-        description: string;
+        title?: string;
+        to?: string;
+        target?: string;
+        description?: string;
         icon?: string;
       })[];
     })[];
@@ -61,6 +61,8 @@ interface DefaultConfig {
   };
   aside: {
     useLevel: boolean;
+    levelStyle: 'aside' | 'header';
+    headerLevelNavAlign: 'start' | 'center' | 'end';
     collapse: boolean;
     collapseLevel: number;
     folderStyle: 'default' | 'tree' | 'group';
@@ -82,12 +84,14 @@ interface DefaultConfig {
     };
     backToTop: boolean;
     pm: ('npm' | 'pnpm' | 'bun' | 'yarn')[];
+    imageZoom: boolean;
     codeIcon: {
       [key: string]: string;
     };
   };
   footer: {
     credits: string;
+    border: boolean;
     links: ({
       icon: string;
       title: string;
@@ -135,19 +139,19 @@ interface DefaultConfig {
   };
 }
 
-type Color =
-  | 'zinc'
-  | 'slate'
-  | 'stone'
-  | 'gray'
-  | 'neutral'
-  | 'red'
-  | 'rose'
-  | 'orange'
-  | 'green'
-  | 'blue'
-  | 'yellow'
-  | 'violet';
+type Color
+  = | 'zinc'
+    | 'slate'
+    | 'stone'
+    | 'gray'
+    | 'neutral'
+    | 'red'
+    | 'rose'
+    | 'orange'
+    | 'green'
+    | 'blue'
+    | 'yellow'
+    | 'violet';
 
 type Target = '_blank' | '_parent' | '_self' | '_top' | (string & object) | null | undefined;
 

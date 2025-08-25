@@ -1,21 +1,22 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import tailwindcss from '@tailwindcss/vite';
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/tailwindcss',
     'shadcn-nuxt',
     '@vueuse/nuxt',
-    '@nuxt/content',
+    '@ztl-uwu/nuxt-content',
     '@nuxt/image',
     '@nuxt/icon',
     '@nuxtjs/color-mode',
     'nuxt-og-image',
     '@nuxt/scripts',
     '@nuxtjs/i18n',
+    '@nuxt/fonts',
   ],
   shadcn: {
     prefix: 'Ui',
@@ -29,21 +30,20 @@ export default defineNuxtConfig({
       },
     ],
   },
+  i18n: {
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
+    strategy: 'prefix_except_default',
+  },
   colorMode: {
     classSuffix: '',
     disableTransition: true,
   },
   css: [
     join(currentDir, './assets/css/themes.css'),
+    '~/assets/css/tailwind.css',
   ],
-  tailwindcss: {
-    config: {
-      content: [
-        join(currentDir, './pages/**/*.{vue,js,ts}'),
-        join(currentDir, './components/**/*.{vue,js,ts}'),
-      ],
-    },
-  },
   content: {
     documentDriven: true,
     highlight: {
@@ -80,6 +80,11 @@ export default defineNuxtConfig({
       sizeLimitKb: 512,
     },
   },
+  fonts: {
+    defaults: {
+      weights: ['300 800'],
+    },
+  },
   typescript: {
     tsConfig: {
       compilerOptions: {
@@ -87,8 +92,13 @@ export default defineNuxtConfig({
       },
     },
   },
-  build: {
-    transpile: ['shiki', 'ohash'],
+  vite: {
+    plugins: [
+      tailwindcss(),
+    ],
+    optimizeDeps: {
+      include: ['debug'],
+    },
   },
-  compatibilityDate: '2024-07-05',
+  compatibilityDate: '2025-05-13',
 });

@@ -25,13 +25,13 @@ const { code } = defineProps<{
 const { toast } = useToast();
 const { t } = useI18n();
 
-const { copy } = useClipboard({ source: code });
+const { copy } = useClipboard({ source: code, legacy: true });
 const copied = ref(false);
 
 const { codeCopyIcon } = useConfig().value.main;
 
 async function handleClick() {
-  await copy(code);
+  await copy(code.replaceAll(/\s*\/\/\s*\[!code (focus|\+\+|--|error|warning)\]/g, ''));
   copied.value = true;
 
   if (useConfig().value.main.codeCopyToast) {
